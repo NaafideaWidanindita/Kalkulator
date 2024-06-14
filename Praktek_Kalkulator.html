@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator</title>
+    <style>
+        /* Kalkulator */
+        button{
+            width: 100%;
+            border-color: 1px;
+            border-radius: 5px;
+        }
+        .red{
+            background-color: red;
+            color: rgb(255, 255, 255);
+        }
+        .blue{
+            background-color: blue;
+            color: rgb(255, 255, 255);
+        }
+        .operator{
+            background-color: rgb(255, 255, 4);
+            color: rgb(0, 0, 0);
+        }
+        .answer{
+            background-color: green;
+            color: rgb(255, 255, 255);
+        }
+        .black{
+            background-color: black;
+            color: rgb(255, 255, 255);
+        }
+
+        /* Kalkulator Menggunakan Grid */
+        .grid-container{
+            display: grid;
+            grid-gap: 4px;
+            grid-template-columns: 50px 50px 50px 50px;
+        }
+        input{
+            grid-column: 1/4 span;
+        }
+        .ac{
+            grid-column: 1/2 span;
+        }
+    </style>
+</head>
+<body>
+    <h1>Kalkulator</h1>
+    <table>
+        <tr>
+            <th colspan="4"><input type="text" name="display" id="display1"></th>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button class="red" onclick="clearDisplay('display1')">AC</button>
+            </td>
+            <td>
+                <button class="blue" onclick="deleteLast('display1')">C</button>
+            </td>
+            <td>
+                <button class="operator" onclick="appendCharacter('*', 'display1')">*</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button onclick="appendCharacter('7', 'display1')">7</button>
+            </td>
+            <td>
+                <button onclick="appendCharacter('8', 'display1')">8</button>
+            </td>
+            <td>
+                <button onclick="appendCharacter('9', 'display1')">9</button>
+            </td>
+            <td>
+                <button class="operator" onclick="appendCharacter('/', 'display1')">/</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button onclick="appendCharacter('4', 'display1')">4</button>
+            </td>
+            <td>
+                <button onclick="appendCharacter('5', 'display1')">5</button>
+            </td>
+            <td>
+                <button onclick="appendCharacter('6', 'display1')">6</button>
+            </td>
+            <td>
+                <button class="operator" onclick="appendCharacter('+', 'display1')">+</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button onclick="appendCharacter('1', 'display1')">1</button>
+            </td>
+            <td>
+                <button onclick="appendCharacter('2', 'display1')">2</button>
+            </td>
+            <td>
+                <button onclick="appendCharacter('3', 'display1')">3</button>
+            </td>
+            <td>
+                <button class="operator" onclick="appendCharacter('-', 'display1')">-</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button class="black" onclick="toggleSign('display1')">+-</button>
+            </td>
+            <td>
+                <button onclick="appendCharacter('0', 'display1')">0</button>
+            </td>
+            <td>
+                <button class="black" onclick="appendCharacter('.', 'display1')">.</button>
+            </td>
+            <td>
+                <button class="answer" onclick="calculateResult('display1')">=</button>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <h1>Kalkulator Menggunakan Grid</h1>
+    <div class="grid-container">
+        <input type="text" name="display" id="display2">
+        <button class="ac" onclick="clearDisplay('display2')">AC</button>
+        <button onclick="deleteLast('display2')">C</button>
+        <button onclick="appendCharacter('*', 'display2')">*</button>
+        <button onclick="appendCharacter('7', 'display2')">7</button>
+        <button onclick="appendCharacter('8', 'display2')">8</button>
+        <button onclick="appendCharacter('9', 'display2')">9</button>
+        <button onclick="appendCharacter('/', 'display2')">/</button>
+        <button onclick="appendCharacter('4', 'display2')">4</button>
+        <button onclick="appendCharacter('5', 'display2')">5</button>
+        <button onclick="appendCharacter('6', 'display2')">6</button>
+        <button onclick="appendCharacter('+', 'display2')">+</button>
+        <button onclick="appendCharacter('1', 'display2')">1</button>
+        <button onclick="appendCharacter('2', 'display2')">2</button>
+        <button onclick="appendCharacter('3', 'display2')">3</button>
+        <button onclick="appendCharacter('-', 'display2')">-</button>
+        <button onclick="toggleSign('display2')">+-</button>
+        <button onclick="appendCharacter('0', 'display2')">0</button>
+        <button onclick="appendCharacter('.', 'display2')">.</button>
+        <button onclick="calculateResult('display2')">=</button>
+    </div>
+    <script>
+        function appendCharacter(character, displayId) {
+            const display = document.getElementById(displayId);
+            display.value += character;
+        }
+
+        function clearDisplay(displayId) {
+            const display = document.getElementById(displayId);
+            display.value = '';
+        }
+
+        function deleteLast(displayId) {
+            const display = document.getElementById(displayId);
+            display.value = display.value.slice(0, -1);
+        }
+
+        function toggleSign(displayId) {
+            const display = document.getElementById(displayId);
+            if (display.value.startsWith('-')) {
+                display.value = display.value.slice(1);
+            } else {
+                display.value = '-' + display.value;
+            }
+        }
+
+        function calculateResult(displayId) {
+            const display = document.getElementById(displayId);
+            try {
+                display.value = eval(display.value);
+            } catch (error) {
+                display.value = 'Error';
+            }
+        }
+    </script>
+</body>
+</html>
